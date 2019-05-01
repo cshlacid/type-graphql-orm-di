@@ -1,0 +1,40 @@
+{
+  "name": "type-graphql-orm-di",
+  "version": "1.0.0",
+  "description": "typegraphql, typeorm, typedi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist/; tsc",
+    "lint": "tslint \"**/*.ts\" -e \"node_modules/**\"",
+    "start": "nodemon src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cshlacid/type-graphql-orm-di.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cshlacid/type-graphql-orm-di/issues"
+  },
+  "homepage": "https://github.com/cshlacid/type-graphql-orm-di#readme",
+  "dependencies": {
+    "apollo-server": "^2.4.8",
+    "config": "^3.1.0",
+    "graphql": "^14.2.1",
+    "mysql2": "^1.6.5",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^0.17.3",
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.16",
+    "typeorm-typedi-extensions": "^0.2.3"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.2.0",
+    "@types/node": "^11.13.8",
+    "nodemon": "^1.18.11",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
+  }
+}
