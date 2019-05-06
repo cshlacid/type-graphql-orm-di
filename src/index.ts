@@ -1,12 +1,17 @@
 import "reflect-metadata";
-import { ApolloServer } from "apollo-server";
+import { ApolloServer } from "apollo-server-express";
 import * as config from "config";
+import * as express from "express";
 import { Container } from "typedi";
 import * as TypeORM from "typeorm";
 import { buildSchema } from "type-graphql";
-import { authChecker } from "./lib/authChecker";
+import IContext from "./interface/context.interface";
+import { authChecker, getUser } from "./lib/auth";
 
 TypeORM.useContainer(Container);
+
+const app = express();
+const path = "/graphql";
 
 (async () => {
   try {
@@ -27,15 +32,23 @@ TypeORM.useContainer(Container);
 
     const server = new ApolloServer({
       schema,
-      context: ctx => {
+      context: context => {
         return {
-          ...ctx,
-        };
+          ...context,
+          user: getUser(context),
+        } as IContext;
       },
     });
 
-    const { url } = await server.listen(config.get("port"));
-    console.log(`Server is running, GraphQL Playground available at ${url}`);
+    server.applyMiddleware({ app, path });
+
+    app.use((err, req, res, next) => {
+      res.status(500).send(err);
+    });
+
+    app.listen({ port: config.get("port") }, () => {
+      console.log(`🚀 Server ready at http://localhost:${config.get("port")}${server.graphqlPath}`);
+    });
   } catch (e) {
     console.error(e);
   }

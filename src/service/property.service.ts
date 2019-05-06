@@ -1,16 +1,15 @@
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { PropertyRepository } from "../repository/PropertyRepository";
+import { PropertyRepository } from "../repository/property.repository";
 import { LocaleEnum } from "../enum/locale.enum";
-import { AddPropertyInput } from "../type/input/property.input";
-import Property from "../entity/Property";
-import PropertyI18n from "../entity/PropertyI18n";
+import { AddPropertyInput } from "../graphql/input/property.input";
+import Property from "../entity/property.entity";
+import PropertyI18n from "../entity/propertyI18n.entity";
 import { getManager } from "typeorm";
 
 @Service()
 export default class PropertyService {
-  @InjectRepository()
-  private readonly propertyRepository: PropertyRepository;
+  @InjectRepository() private readonly propertyRepository: PropertyRepository;
 
   getProperty(propertyId: number) {
     return this.propertyRepository.getProperty(propertyId);

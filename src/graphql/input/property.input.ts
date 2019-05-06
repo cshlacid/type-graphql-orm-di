@@ -1,5 +1,5 @@
 import { InputType, Field } from "type-graphql";
-import Property from "../../entity/Property";
+import Property from "../../entity/property.entity";
 
 @InputType()
 export class AddPropertyInput implements Partial<Property> {

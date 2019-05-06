@@ -1,7 +1,7 @@
-import { ObjectType, Field, Int, Authorized, Float, ID } from "type-graphql";
+import { ObjectType, Field, ID } from "type-graphql";
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, OneToOne, Index } from "typeorm";
-import Roomtype from "./Roomtype";
-import PropertyI18n from "./PropertyI18n";
+import PropertyI18n from "./propertyI18n.entity";
+import Roomtype from "./roomtype.entity";
 
 @Entity()
 @ObjectType()

@@ -1,0 +1,15 @@
+{
+  database: {
+    type: "mysql",
+    host: "localhost",
+    port: 3306,
+    username: "root",
+    password: "",
+    database: "",
+    timezone: "+09:00",
+    synchronize: true,
+    logger: "advanced-console",
+    logging: "all",
+    cache: true,
+  }
+}

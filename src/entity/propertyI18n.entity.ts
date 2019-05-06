@@ -1,13 +1,18 @@
-import { ObjectType, Field, Int, Authorized, Float, ID } from "type-graphql";
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
-import Property from "./Property";
+import { ObjectType, Field, ID } from "type-graphql";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany, PrimaryColumn, ManyToOne } from "typeorm";
+import { LocaleEnum } from "../enum/locale.enum";
+import Property from "./property.entity";
 
 @Entity()
 @ObjectType()
-export default class Roomtype {
+export default class PropertyI18n {
   @Field(type => ID)
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  propertyId: number;
+
+  @Field(type => LocaleEnum)
+  @PrimaryColumn("enum", { enum: LocaleEnum })
+  locale: LocaleEnum;
 
   @Field()
   @Column({ length: 100 })
@@ -16,18 +21,6 @@ export default class Roomtype {
   @Field({ nullable: true })
   @Column("text", { nullable: true })
   description?: string;
-
-  @Field()
-  @Column()
-  size: number;
-
-  @Field()
-  @Column("smallint")
-  minCapacity: number;
-
-  @Field()
-  @Column("smallint")
-  maxCapacity: number;
 
   @Field()
   @CreateDateColumn({ precision: null, default: () => "CURRENT_TIMESTAMP" })
@@ -40,7 +33,6 @@ export default class Roomtype {
   @Column({ nullable: true })
   deletedAt?: Date;
 
-  @Field(type => Property)
   @ManyToOne(type => Property, property => property.roomtypes, { nullable: false })
   property: Property;
 }

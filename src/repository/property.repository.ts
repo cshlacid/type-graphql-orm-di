@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 import { Repository, EntityRepository } from "typeorm";
-import Property from "../entity/Property";
+import Property from "../entity/property.entity";
 import { LocaleEnum } from "../enum/locale.enum";
 
 @Service()
