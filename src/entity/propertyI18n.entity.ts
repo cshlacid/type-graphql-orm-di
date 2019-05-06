@@ -1,12 +1,13 @@
-import { ObjectType, Field, ID } from "type-graphql";
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany, PrimaryColumn, ManyToOne } from "typeorm";
+import { ObjectType, Field, Int } from "type-graphql";
+import { Entity, Column, PrimaryColumn, ManyToOne } from "typeorm";
 import { LocaleEnum } from "../enum/locale.enum";
 import Property from "./property.entity";
+import DateEntity from "./date.entity";
 
 @Entity()
 @ObjectType()
-export default class PropertyI18n {
-  @Field(type => ID)
+export default class PropertyI18n extends DateEntity {
+  @Field(type => Int)
   @PrimaryColumn()
   propertyId: number;
 
@@ -21,17 +22,6 @@ export default class PropertyI18n {
   @Field({ nullable: true })
   @Column("text", { nullable: true })
   description?: string;
-
-  @Field()
-  @CreateDateColumn({ precision: null, default: () => "CURRENT_TIMESTAMP" })
-  createdAt: Date;
-
-  @Field()
-  @UpdateDateColumn({ precision: null, default: () => "CURRENT_TIMESTAMP" })
-  updatedAt: Date;
-
-  @Column({ nullable: true })
-  deletedAt?: Date;
 
   @ManyToOne(type => Property, property => property.roomtypes, { nullable: false })
   property: Property;

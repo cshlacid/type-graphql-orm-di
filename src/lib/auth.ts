@@ -3,6 +3,7 @@ import * as config from "config";
 import * as jwt from "jsonwebtoken";
 import IContext from "../interface/context.interface";
 import IUser from "../interface/user.interface";
+import Property from "../entity/property.entity";
 
 export const getToken = (context: IContext): string | null => {
   const authorization = context.req.headers.authorization;
@@ -47,11 +48,21 @@ export const authChecker: AuthChecker<IContext> = ({ root, args, context, info }
   }
 
   if (roles.includes("PROPERTY")) {
-    if (!context.user.roles.property || !args.propertyId) {
+    if (context.user.roles.admin) {
+      return true;
+    }
+
+    if (!context.user.roles.property) {
       return false;
     }
 
-    return context.user.roles.property.includes(+args.propertyId);
+    if (root && root instanceof Property) {
+      return context.user.roles.property.includes(root.id);
+    } else if (args.propertyId) {
+      return context.user.roles.property.includes(args.propertyId);
+    }
+
+    return false;
   }
 
   return false;

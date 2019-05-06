@@ -11,5 +11,11 @@
     logger: "advanced-console",
     logging: "all",
     cache: true,
+  },
+  cache: {
+    host: "localhost",
+    port: 6379,
+    logging: true,
+    db: 0,
   }
 }

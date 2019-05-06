@@ -1,20 +1,37 @@
 import { Service } from "typedi";
-import { Repository, EntityRepository } from "typeorm";
+import { Repository, EntityRepository, getConnection, Connection } from "typeorm";
 import Property from "../entity/property.entity";
 import { LocaleEnum } from "../enum/locale.enum";
 
 @Service()
 @EntityRepository(Property)
 export class PropertyRepository extends Repository<Property> {
-  getProperty(propertyId: number) {
-    return this.findOne(propertyId);
+  private connection: Connection;
+  constructor() {
+    super();
+    this.connection = getConnection();
+  }
+
+  async getProperty(propertyId: number, force = false) {
+    const cacheId = `property_${propertyId}`;
+    if (force) {
+      if (this.connection.queryResultCache) {
+        await this.connection.queryResultCache.remove([cacheId]);
+      }
+    }
+
+    return this.findOne(propertyId, {
+      relations: ["i18n"],
+      cache: {
+        id: cacheId,
+        milliseconds: 60000,
+      },
+    });
   }
 
   getProperties(locale: LocaleEnum, skip: number, take: number) {
     return this.createQueryBuilder("property")
       .leftJoinAndSelect("property.i18n", "i18n", "i18n.deletedAt IS NULL AND i18n.locale = :locale", { locale })
-      .leftJoinAndSelect("property.i18ns", "i18ns", "i18ns.deletedAt IS NULL")
-      .leftJoinAndSelect("property.roomtypes", "roomtypes", "roomtypes.deletedAt IS NULL")
       .where("property.deletedAt IS NULL")
       .orderBy("property.id", "DESC")
       .skip(skip)

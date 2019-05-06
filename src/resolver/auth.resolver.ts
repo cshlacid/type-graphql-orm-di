@@ -10,12 +10,13 @@ class AuthResolver {
     const payload = {
       id: "qwerty",
       roles: {
+        // admin: true,
         property: [2],
       },
     } as IUser;
 
     return jwt.sign(payload, config.get("secret"), {
-      expiresIn: "5m",
+      expiresIn: "30m",
     });
   }
 }

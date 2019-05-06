@@ -14,8 +14,8 @@ export default class RoomtypeService {
     return this.roomtypeRepository.getRoomtype(roomtypeId);
   }
 
-  getRoomtypes(propertyId: number, skip: number, take: number) {
-    return this.roomtypeRepository.getRoomtypes(propertyId, skip, take);
+  getRoomtypes(propertyId: number) {
+    return this.roomtypeRepository.getRoomtypesLoader(propertyId);
   }
 
   async addRoomtype(propertyId: number, data: AddRoomtypeInput) {

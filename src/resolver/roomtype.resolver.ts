@@ -1,27 +1,31 @@
-import { Resolver, Query, Args, Arg, ID, Mutation, Authorized } from "type-graphql";
+import { Resolver, Query, Arg, Mutation, Authorized, Int } from "type-graphql";
 import { Inject } from "typedi";
-import { PaginationArg } from "../graphql/arg/pagination.arg";
-import RoomtypeService from "../service/roomtype.service";
-import Roomtype from "../entity/roomtype.entity";
 import { AddRoomtypeInput } from "../graphql/input/roomtype.input";
+import Roomtype from "../entity/roomtype.entity";
+import RoomtypeService from "../service/roomtype.service";
 
-@Resolver()
+@Resolver(type => Roomtype)
 class RoomtypeResolver {
   @Inject() private readonly roomtypeService: RoomtypeService;
 
+  @Authorized("PROPERTY")
   @Query(returns => Roomtype, { nullable: true })
-  roomtype(@Arg("roomtypeId", type => ID) roomtypeId: number): Promise<Roomtype | undefined> {
+  roomtype(
+    @Arg("propertyId", type => Int) propertyId: number,
+    @Arg("roomtypeId", type => Int) roomtypeId: number,
+  ): Promise<Roomtype | undefined> {
     return this.roomtypeService.getRoomtype(roomtypeId);
   }
 
+  @Authorized("PROPERTY")
   @Query(returns => [Roomtype])
-  roomtypes(@Arg("propertyId", type => ID) propertyId: number, @Args() { skip, take }: PaginationArg): Promise<Roomtype[]> {
-    return this.roomtypeService.getRoomtypes(propertyId, skip, take);
+  roomtypes(@Arg("propertyId", type => Int) propertyId: number): Promise<Roomtype[]> {
+    return this.roomtypeService.getRoomtypes(propertyId);
   }
 
   @Authorized("PROPERTY")
   @Mutation(returns => Roomtype)
-  AddRoomtype(@Arg("propertyId", type => ID) propertyId: number, @Arg("data") RoomtypeData: AddRoomtypeInput): Promise<Roomtype> {
+  AddRoomtype(@Arg("propertyId", type => Int) propertyId: number, @Arg("data") RoomtypeData: AddRoomtypeInput): Promise<Roomtype> {
     return this.roomtypeService.addRoomtype(propertyId, RoomtypeData);
   }
 }

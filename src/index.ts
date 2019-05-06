@@ -17,16 +17,21 @@ const path = "/graphql";
   try {
     await TypeORM.createConnection({
       ...config.get("database"),
+      cache: {
+        type: "ioredis",
+        options: config.get("cache"),
+      },
       entities: [
-        __dirname + "/entity/**/*.[jt]s",
+        __dirname + "/entity/**/*.entity.[jt]s",
       ],
     });
 
     const schema = await buildSchema({
       resolvers: [
-        __dirname + "/resolver/**/*.[jt]s",
+        __dirname + "/resolver/**/*.resolver.[jt]s",
       ],
       authChecker,
+      authMode: "null",
       container: Container,
     });
 
