@@ -37,6 +37,7 @@ const path = "/graphql";
 
     const server = new ApolloServer({
       schema,
+      tracing: true,
       context: context => {
         return {
           ...context,
