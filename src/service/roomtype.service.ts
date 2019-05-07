@@ -30,7 +30,7 @@ export default class RoomtypeService {
     roomtype.size = data.size;
     roomtype.minCapacity = data.minCapacity;
     roomtype.maxCapacity = data.maxCapacity;
-    roomtype.property = property;
+    roomtype.propertyId = property.id;
     return this.roomtypeRepository.save(roomtype);
   }
 }
