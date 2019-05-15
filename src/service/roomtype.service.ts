@@ -24,13 +24,19 @@ export default class RoomtypeService {
       throw new Error("property not found");
     }
 
-    const roomtype = new Roomtype();
-    roomtype.name = data.name;
-    roomtype.description = data.description;
-    roomtype.size = data.size;
-    roomtype.minCapacity = data.minCapacity;
-    roomtype.maxCapacity = data.maxCapacity;
-    roomtype.propertyId = property.id;
+    // const roomtype = new Roomtype();
+    // roomtype.name = data.name;
+    // roomtype.description = data.description;
+    // roomtype.size = data.size;
+    // roomtype.minCapacity = data.minCapacity;
+    // roomtype.maxCapacity = data.maxCapacity;
+    // roomtype.propertyId = property.id;
+    // return this.roomtypeRepository.save(roomtype);
+
+    const roomtype = this.roomtypeRepository.create({
+      ...data,
+    });
+
     return this.roomtypeRepository.save(roomtype);
   }
 }

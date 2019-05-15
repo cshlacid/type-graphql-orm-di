@@ -3,10 +3,12 @@ import { Service } from "typedi";
 import { Repository, EntityRepository, In } from "typeorm";
 import { LocaleEnum } from "../enum/locale.enum";
 import PropertyI18n from "../entity/propertyI18n.entity";
+import { BaseRepository } from "typeorm-transactional-cls-hooked";
+import Property from "../entity/property.entity";
 
 @Service()
 @EntityRepository(PropertyI18n)
-export class PropertyI18nRepository extends Repository<PropertyI18n> {
+export class PropertyI18nRepository extends BaseRepository<PropertyI18n> {
   private propertyI18nsLoader: DataLoader<number, PropertyI18n[]> = new DataLoader(async ids => {
     const items = await this.getPropertyI18ns(ids);
     return Promise.resolve(ids.map(id => items.filter(item => item.propertyId === id)));
@@ -41,5 +43,12 @@ export class PropertyI18nRepository extends Repository<PropertyI18n> {
 
   getPropertyI18nsLoader(propertyId: number) {
     return this.propertyI18nsLoader.load(propertyId);
+  }
+
+  addPropertyI18n(propertyId: number, i18n: PropertyI18n) {
+    return this.save(this.create({
+      ...i18n,
+      propertyId,
+    }));
   }
 }

@@ -1,11 +1,12 @@
 import { Service } from "typedi";
 import { Repository, EntityRepository, getConnection, Connection } from "typeorm";
+import { BaseRepository } from "typeorm-transactional-cls-hooked";
 import Property from "../entity/property.entity";
 import { LocaleEnum } from "../enum/locale.enum";
 
 @Service()
 @EntityRepository(Property)
-export class PropertyRepository extends Repository<Property> {
+export class PropertyRepository extends BaseRepository<Property> {
   private connection: Connection;
   constructor() {
     super();
@@ -37,5 +38,12 @@ export class PropertyRepository extends Repository<Property> {
       .skip(skip)
       .take(take)
       .getMany();
+  }
+
+  addProperty(data: Property) {
+    const property = this.create({
+      ...data,
+    });
+    return this.save(property);
   }
 }

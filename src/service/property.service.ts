@@ -7,6 +7,7 @@ import { PropertyRepository } from "../repository/property.repository";
 import { PropertyI18nRepository } from "../repository/propertyI18n.repository";
 import Property from "../entity/property.entity";
 import PropertyI18n from "../entity/propertyI18n.entity";
+import { Transactional } from "typeorm-transactional-cls-hooked";
 
 @Service()
 export default class PropertyService {
@@ -25,20 +26,11 @@ export default class PropertyService {
     return this.propertyI18nRepository.getPropertyI18nsLoader(propertyId);
   }
 
-  async addProperty(data: AddPropertyInput) {
-    return getManager().transaction(async trx => {
-      const property = this.propertyRepository.create({
-        ...data,
-      });
-      await trx.save(property);
+  @Transactional()
+  async addProperty(data: Property) {
+    const property = await this.propertyRepository.addProperty(data);
+    await this.propertyI18nRepository.addPropertyI18n(property.id, data.i18n);
 
-      const i18n = this.propertyI18nRepository.create({
-        ...data,
-        property,
-      });
-      await trx.save(i18n);
-
-      return property;
-    });
+    return property;
   }
 }

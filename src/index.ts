@@ -7,6 +7,9 @@ import * as TypeORM from "typeorm";
 import { buildSchema } from "type-graphql";
 import IContext from "./interface/context.interface";
 import { authChecker, getUser } from "./lib/auth";
+import { initializeTransactionalContext } from "typeorm-transactional-cls-hooked";
+
+initializeTransactionalContext();
 
 TypeORM.useContainer(Container);
 
@@ -31,7 +34,7 @@ const path = "/graphql";
         __dirname + "/resolver/**/*.resolver.[jt]s",
       ],
       authChecker,
-      authMode: "null",
+      // authMode: "null",
       container: Container,
     });
 

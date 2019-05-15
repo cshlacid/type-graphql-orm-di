@@ -34,7 +34,7 @@ export const getUser = (context: IContext): IUser | null => {
 };
 
 export const authChecker: AuthChecker<IContext> = ({ root, args, context, info }, roles) => {
-  // console.log("authChecker", args, context.user, info.fieldName, roles);
+  console.log("authChecker", args, context.user, info.fieldName, roles);
   if (!context.user) {
     return false;
   }
@@ -60,6 +60,9 @@ export const authChecker: AuthChecker<IContext> = ({ root, args, context, info }
       return context.user.roles.property.includes(root.id);
     } else if (args.propertyId) {
       return context.user.roles.property.includes(args.propertyId);
+    } else {
+      context["propertyIds"] = context.user.roles.property;
+      return true;
     }
 
     return false;

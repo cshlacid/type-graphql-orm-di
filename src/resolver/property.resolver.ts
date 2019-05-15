@@ -13,7 +13,7 @@ class PropertyResolver {
   @Inject() private readonly propertyService: PropertyService;
   @Inject() private readonly roomtypeService: RoomtypeService;
 
-  @Authorized("PROPERTY")
+  // @Authorized("PROPERTY")
   @Query(returns => Property, { nullable: true })
   property(
     @Arg("propertyId", type => Int) propertyId: number,
@@ -22,17 +22,17 @@ class PropertyResolver {
     return this.propertyService.getProperty(propertyId, force);
   }
 
-  @Authorized("ADMIN")
-  @Query(returns => [Property])
+  // @Authorized("ADMIN")
+  @Query(returns => [Property], { nullable: true })
   properties(@Args() { skip, take }: PaginationArg): Promise<Property[]> {
     return this.propertyService.getProperties(skip, take);
   }
 
-  @Authorized("PROPERTY")
-  @FieldResolver(returns => [PropertyI18n], { nullable: true })
-  i18ns(@Root() property: Property): Promise<PropertyI18n[]> {
-    return this.propertyService.getpropertyI18ns(property.id);
-  }
+  // @Authorized("PROPERTY")
+  // @FieldResolver(returns => [PropertyI18n], { nullable: true })
+  // i18ns(@Root() property: Property): Promise<PropertyI18n[]> {
+  //   return this.propertyService.getpropertyI18ns(property.id);
+  // }
 
   @Authorized("PROPERTY")
   @FieldResolver(returns => [Roomtype], { nullable: true })
@@ -40,9 +40,9 @@ class PropertyResolver {
     return this.roomtypeService.getRoomtypes(property.id);
   }
 
-  @Authorized("ADMIN")
+  // @Authorized("ADMIN")
   @Mutation(returns => Property)
-  AddProperty(@Arg("data") propertyData: AddPropertyInput): Promise<Property> {
-    return this.propertyService.addProperty(propertyData);
+  addProperty(@Arg("data", type => Property) data: Property): Promise<Property> {
+    return this.propertyService.addProperty(data);
   }
 }
