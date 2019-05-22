@@ -4,10 +4,10 @@ import * as config from "config";
 import * as express from "express";
 import { Container } from "typedi";
 import * as TypeORM from "typeorm";
-import { buildSchema } from "type-graphql";
-import IContext from "./interface/context.interface";
-import { authChecker, getUser } from "./lib/auth";
 import { initializeTransactionalContext } from "typeorm-transactional-cls-hooked";
+import { buildSchema } from "type-graphql";
+import IContext from "./type/interface/context.interface";
+import { authChecker, getUser } from "./lib/auth";
 
 initializeTransactionalContext();
 

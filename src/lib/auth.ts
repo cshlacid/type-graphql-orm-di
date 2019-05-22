@@ -1,9 +1,9 @@
 import { AuthChecker } from "type-graphql";
 import * as config from "config";
 import * as jwt from "jsonwebtoken";
-import IContext from "../interface/context.interface";
-import IUser from "../interface/user.interface";
-import Property from "../entity/property.entity";
+import IContext from "../type/interface/context.interface";
+import IUser from "../type/interface/user.interface";
+import Property from "../model/entity/property.entity";
 
 export const getToken = (context: IContext): string | null => {
   const authorization = context.req.headers.authorization;

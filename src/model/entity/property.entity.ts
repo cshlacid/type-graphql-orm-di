@@ -1,11 +1,13 @@
-import { Field, ObjectType, Int } from "type-graphql";
-import { PrimaryGeneratedColumn, OneToMany, OneToOne } from "typeorm";
-import DateEntity from "./date.entity";
+import { ObjectType, Field, Int, InputType } from "type-graphql";
+import { Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import PropertyI18n from "./propertyI18n.entity";
+import PropertyType from "../type/property.type";
 import Roomtype from "./roomtype.entity";
 
+@Entity()
 @ObjectType()
-export default abstract class PropertyBaseEntity extends DateEntity {
+@InputType("PropertyInput")
+export default class Property extends PropertyType {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number;

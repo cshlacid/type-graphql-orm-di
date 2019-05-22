@@ -1,15 +1,12 @@
-import { ObjectType, Field, Int, InputType } from "type-graphql";
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, Index } from "typeorm";
-import DateEntity from "./date.entity";
-import PropertyI18n from "./propertyI18n.entity";
-import Roomtype from "./roomtype.entity";
+import { Field, ObjectType, InputType } from "type-graphql";
+import { OneToOne, Index, Column } from "typeorm";
+import DateEntity from "../base/date.entity";
+import PropertyI18n from "../entity/propertyI18n.entity";
 import { Length } from "class-validator";
-import PropertyBaseEntity from "./propertyBase.entity";
 
-@Entity()
 @ObjectType()
-@InputType("PropertyInput")
-export default class Property extends PropertyBaseEntity {
+@InputType("PropertyInputType")
+export default class PropertyType extends DateEntity {
   @Index()
   @Field()
   @Length(5, 6)

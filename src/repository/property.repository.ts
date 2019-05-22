@@ -1,8 +1,8 @@
 import { Service } from "typedi";
 import { Repository, EntityRepository, getConnection, Connection } from "typeorm";
 import { BaseRepository } from "typeorm-transactional-cls-hooked";
-import Property from "../entity/property.entity";
-import { LocaleEnum } from "../enum/locale.enum";
+import Property from "../model/entity/property.entity";
+import { LocaleEnum } from "../type/enum/locale.enum";
 
 @Service()
 @EntityRepository(Property)
@@ -40,7 +40,7 @@ export class PropertyRepository extends BaseRepository<Property> {
       .getMany();
   }
 
-  addProperty(data: Property) {
+  addProperty(data: Partial<Property>) {
     const property = this.create({
       ...data,
     });

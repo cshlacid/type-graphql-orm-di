@@ -1,7 +1,7 @@
 import { Resolver, Query } from "type-graphql";
 import * as config from "config";
 import * as jwt from "jsonwebtoken";
-import IUser from "../interface/user.interface";
+import IUser from "../type/interface/user.interface";
 
 @Resolver()
 class AuthResolver {

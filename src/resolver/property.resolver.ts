@@ -1,12 +1,11 @@
 import { Resolver, Query, Args, Arg, Mutation, Authorized, FieldResolver, Root, Int } from "type-graphql";
 import { Inject } from "typedi";
-import { PaginationArg } from "../graphql/arg/pagination.arg";
-import { AddPropertyInput } from "../graphql/input/property.input";
-import Property from "../entity/property.entity";
-import PropertyI18n from "../entity/propertyI18n.entity";
-import Roomtype from "../entity/roomtype.entity";
+import { PaginationArg } from "../type/arg/pagination.arg";
+import Property from "../model/entity/property.entity";
+import Roomtype from "../model/entity/roomtype.entity";
 import PropertyService from "../service/property.service";
 import RoomtypeService from "../service/roomtype.service";
+import PropertyType from "../model/type/property.type";
 
 @Resolver(type => Property)
 class PropertyResolver {
@@ -42,7 +41,7 @@ class PropertyResolver {
 
   // @Authorized("ADMIN")
   @Mutation(returns => Property)
-  addProperty(@Arg("data", type => Property) data: Property): Promise<Property> {
+  addProperty(@Arg("data", type => Property) data: PropertyType): Promise<Property> {
     return this.propertyService.addProperty(data);
   }
 }

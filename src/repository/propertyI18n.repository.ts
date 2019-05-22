@@ -1,10 +1,9 @@
 import * as DataLoader from "dataloader";
 import { Service } from "typedi";
-import { Repository, EntityRepository, In } from "typeorm";
-import { LocaleEnum } from "../enum/locale.enum";
-import PropertyI18n from "../entity/propertyI18n.entity";
+import { EntityRepository, In } from "typeorm";
 import { BaseRepository } from "typeorm-transactional-cls-hooked";
-import Property from "../entity/property.entity";
+import { LocaleEnum } from "../type/enum/locale.enum";
+import PropertyI18n from "../model/entity/propertyI18n.entity";
 
 @Service()
 @EntityRepository(PropertyI18n)

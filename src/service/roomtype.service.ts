@@ -1,9 +1,8 @@
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import Roomtype from "../entity/roomtype.entity";
 import { RoomtypeRepository } from "../repository/roomtype.repository";
-import { AddRoomtypeInput } from "../graphql/input/roomtype.input";
 import { PropertyRepository } from "../repository/property.repository";
+import { AddRoomtypeInput } from "../type/input/roomtype.input";
 
 @Service()
 export default class RoomtypeService {

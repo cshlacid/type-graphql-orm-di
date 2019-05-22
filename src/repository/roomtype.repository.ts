@@ -1,7 +1,7 @@
 import * as DataLoader from "dataloader";
 import { Service } from "typedi";
 import { Repository, EntityRepository, In } from "typeorm";
-import Roomtype from "../entity/roomtype.entity";
+import Roomtype from "../model/entity/roomtype.entity";
 
 @Service()
 @EntityRepository(Roomtype)

@@ -1,7 +1,7 @@
 import { Resolver, Query, Arg, Mutation, Authorized, Int } from "type-graphql";
 import { Inject } from "typedi";
-import { AddRoomtypeInput } from "../graphql/input/roomtype.input";
-import Roomtype from "../entity/roomtype.entity";
+import { AddRoomtypeInput } from "../type/input/roomtype.input";
+import Roomtype from "../model/entity/roomtype.entity";
 import RoomtypeService from "../service/roomtype.service";
 
 @Resolver(type => Roomtype)
@@ -25,7 +25,10 @@ class RoomtypeResolver {
 
   @Authorized("PROPERTY")
   @Mutation(returns => Roomtype)
-  AddRoomtype(@Arg("propertyId", type => Int) propertyId: number, @Arg("data") RoomtypeData: AddRoomtypeInput): Promise<Roomtype> {
+  AddRoomtype(
+    @Arg("propertyId", type => Int) propertyId: number,
+    @Arg("data") RoomtypeData: AddRoomtypeInput,
+  ): Promise<Roomtype> {
     return this.roomtypeService.addRoomtype(propertyId, RoomtypeData);
   }
 }

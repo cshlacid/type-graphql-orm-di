@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int } from "type-graphql";
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import Property from "./property.entity";
-import DateEntity from "./date.entity";
+import DateEntity from "../base/date.entity";
 
 @Entity()
 @ObjectType()

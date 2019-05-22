@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist/; tsc",
     "lint": "tslint \"**/*.ts\" -e \"node_modules/**\"",
-    "start": "nodemon src/index.ts"
+    "start": "ts-node-dev --respawn --transpileOnly src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,7 @@
     "@types/graphql": "^14.2.0",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/node": "^11.13.8",
-    "nodemon": "^1.18.11",
+    "ts-node-dev": "^1.0.0-pre.39",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
   }

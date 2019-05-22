@@ -1,5 +1,5 @@
 import { InputType, Field } from "type-graphql";
-import Roomtype from "../../entity/roomtype.entity";
+import Roomtype from "../../model/entity/roomtype.entity";
 
 @InputType()
 export class AddRoomtypeInput implements Partial<Roomtype> {
