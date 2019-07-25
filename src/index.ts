@@ -25,7 +25,7 @@ const path = "/graphql";
         options: config.get("cache"),
       },
       entities: [
-        __dirname + "/entity/**/*.entity.[jt]s",
+        __dirname + "/model/**/*.entity.[jt]s",
       ],
     });
 
